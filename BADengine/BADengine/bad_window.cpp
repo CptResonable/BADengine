@@ -1,5 +1,7 @@
 #include "bad_window.hpp"
 
+#include <stdexcept>
+
 namespace bad {
 	BadWindow::BadWindow(int w, int h, std::string name) : width{ w }, height{ h }, windowName{ name } {
 		initWindow();
@@ -20,5 +22,11 @@ namespace bad {
 
 	bool BadWindow::shouldClose() {
 		return glfwWindowShouldClose(window);
+	}
+
+	void BadWindow::createWindowSurface(VkInstance instance, VkSurfaceKHR* surface) {
+		if (glfwCreateWindowSurface(instance, window, nullptr, surface) != VK_SUCCESS) {
+			throw std::runtime_error("Failed to create wwindow surface");
+		}
 	}
 }

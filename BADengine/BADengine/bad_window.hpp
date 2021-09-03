@@ -15,6 +15,7 @@ namespace bad {
 		BadWindow& operator = (const BadWindow&) = delete;
 
 		bool shouldClose();
+		void createWindowSurface(VkInstance instance, VkSurfaceKHR* surface);
 
 	private:
 

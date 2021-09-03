@@ -1,4 +1,3 @@
-﻿  application.cpp
-  main.cpp
-  Generating Code...
+﻿  bad_pipeline.cpp
+D:\Projects\Repositories\BADengine\BADengine\BADengine\bad_pipeline.cpp(50,19): warning C4101: 'shaderModule': unreferenced local variable
   BADengine.vcxproj -> D:\Projects\Repositories\BADengine\BADengine\x64\Debug\BADengine.exe

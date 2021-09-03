@@ -1,17 +1,47 @@
 #pragma once
 
+#include "bad_device.hpp"
+
 #include <string>
 #include <vector>
 
 namespace bad {
+
+	struct PipelineConfigInfo {
+		VkViewport viewport;
+		VkRect2D scissor;
+		VkPipelineViewportStateCreateInfo viewportInfo;
+		VkPipelineInputAssemblyStateCreateInfo inputAssemblyInfo;
+		VkPipelineRasterizationStateCreateInfo rasterizationInfo;
+		VkPipelineMultisampleStateCreateInfo multisampleInfo;
+		VkPipelineColorBlendAttachmentState colorBlendAttachment;
+		VkPipelineColorBlendStateCreateInfo colorBlendInfo;
+		VkPipelineDepthStencilStateCreateInfo depthStencilInfo;
+		VkPipelineLayout pipelineLayout = nullptr;
+		VkRenderPass renderPass = nullptr;
+		uint32_t subpass = 0;
+	};
+
 	class BadPipeline {
 	public:
-		BadPipeline(const std::string& vertFilepath, const std::string& fragFilepath);
-		//~BadPipeline();
+		BadPipeline(BadDevice& device, const std::string& vertFilepath, const std::string& fragFilepath, const PipelineConfigInfo& configInfo);
+		~BadPipeline();
+
+		BadPipeline(const BadPipeline&) = delete;
+		void operator=(const BadPipeline&) = delete;
+
+		static PipelineConfigInfo defaultPipelineConfigInfo(uint16_t width, uint16_t height);
 
 	private:
 		std::vector<char> readFile(const std::string& filepath);
 
-		void CreateGraphicsPipeline(const std::string& vertFilepath, const std::string& fragFilepath);
+		void createGraphicsPipeline(const std::string& vertFilepath, const std::string& fragFilepath, const PipelineConfigInfo& configInfo);
+
+		void createShaderModule(const std::vector<char>& code, VkShaderModule* shaderModule);
+
+		BadDevice& badDevice;
+		VkPipeline graphicsPipeline;
+		VkShaderModule vertShaderModule;
+		VkShaderModule fragShaderModule;
 	};
 }

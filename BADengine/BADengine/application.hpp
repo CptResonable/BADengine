@@ -2,6 +2,7 @@
 
 #include "bad_window.hpp"
 #include "bad_pipeline.hpp"
+#include "bad_device.hpp"
 
 namespace bad {
 	class Application {
@@ -13,6 +14,7 @@ namespace bad {
 
 	private:
 		BadWindow badWindow{ WIDTH, HEIGHT, "Badass window!" };
-		BadPipeline badPipeline{ "simple_shader.vert.spv", "simple_shader.frag.spv" };
+		BadDevice badDevice{ badWindow };
+		BadPipeline badPipeline {badDevice,  "simple_shader.vert.spv", "simple_shader.frag.spv", BadPipeline::defaultPipelineConfigInfo(WIDTH, HEIGHT) };
 	};
 }
